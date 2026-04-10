@@ -1,0 +1,18 @@
+name: crawl
+on:
+  schedule:
+    - cron: "0 3 * * *"
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: npm run crawl
+      - run: npm run build
+      - run: |
+          git config --global user.name bot
+          git config --global user.email bot@test.com
+          git add .
+          git commit -m "update"
+          git push

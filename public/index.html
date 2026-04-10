@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+<input id="q" oninput="s()">
+<div id="r"></div>
+
+<script>
+async function s(){
+  const res = await fetch('/devices.json')
+  const db = await res.json()
+
+  r.innerHTML = Object.values(db)
+    .filter(x=>x.name.toLowerCase().includes(q.value.toLowerCase()))
+    .slice(0,10)
+    .map(x=>`<div>${x.name}</div>`)
+}
+</script>
+</body>
+</html>
